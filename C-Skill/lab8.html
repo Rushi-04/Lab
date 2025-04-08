@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calc</title>
+  <style>
+    body {margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:#6a11cb;background:linear-gradient(to right,#2575fc,#6a11cb);font-family:sans-serif}
+    .box {background:#fff;padding:20px 30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);width:280px;text-align:center}
+    input,select,button {width:100%;padding:10px;margin:10px 0;border-radius:6px;border:1px solid #ccc}
+    button {background:#2575fc;color:#fff;font-weight:bold;cursor:pointer}
+    button:hover {background:#1e63d0}
+    #res {margin-top:10px;font-weight:bold;color:#333}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>Simple Calc</h3>
+    <input type="number" id="n1" placeholder="1st number">
+    <input type="number" id="n2" placeholder="2nd number">
+    <select id="op">
+      <option value="+">+</option><option value="-">-</option>
+      <option value="*">*</option><option value="/">/</option>
+    </select>
+    <button onclick="calc()">Calculate</button>
+    <div id="res"></div>
+  </div>
+  <script>
+    function calc() {
+      let a=+document.getElementById("n1").value;
+      let b=+document.getElementById("n2").value;
+      let o=document.getElementById("op").value;
+      let r = (o=='+') ? a+b : (o=='-') ? a-b : (o=='*') ? a*b : b!=0 ? a/b : '❌';
+      document.getElementById("res").innerText = "Result: " + r;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Local-Storage</title>
+  <style>
+    .flex1 { display:flex; align-items:center; justify-content:center; height:100vh; width:100vw; background:white; }
+    .flex2 { display:flex; width:300px; flex-direction:column; background:white; }
+    .input { width:200px; height:15px; margin:5px 0; }
+    .sbutton { width:80px; height:20px; margin:2px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="flex1">
+    <div class="flex2">
+      <h3>Registration Form</h3>
+      First Name: <input type="text" id="first-name" placeholder="Enter your first name" class="input">
+      Last Name: <input type="text" id="last-name" placeholder="Enter your last name" class="input">
+      Email-id: <input type="email" id="eid" placeholder="Enter your email-id" class="input">
+      
+      <button type="button" onclick="submit()" class="sbutton">Submit</button>
+      <button type="reset" onclick="reset()" class="sbutton">Reset</button>
+      <button type="button" onclick="clear()" class="sbutton">Clear</button>
+
+      <br><br>
+      <table id="tab" border="1">
+        <tr><th>Name</th><th>Last-Name</th><th>Email-id</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function submit() {
+      var fname = document.getElementById("first-name").value;
+      var lname = document.getElementById("last-name").value;
+      var email = document.getElementById("eid").value;
+
+      var table = document.getElementById("tab");
+      var row = table.insertRow(1);
+      row.insertCell(0).innerHTML = fname;
+      row.insertCell(1).innerHTML = lname;
+      row.insertCell(2).innerHTML = email;
+
+      var arr = [];
+      for (var i = 1; i < table.rows.length; i++) {
+        var cells = table.rows.item(i).cells;
+        arr.push({ Name: cells[0].innerHTML, LastName: cells[1].innerHTML, Email: cells[2].innerHTML });
+      }
+      localStorage.setItem("local1", JSON.stringify(arr));
+    }
+
+    var stored = localStorage.local1;
+    var data = JSON.parse(stored || "[]");
+    var table = document.getElementById("tab");
+    for (var i = 0; i < data.length; i++) {
+      var row = table.insertRow(1);
+      row.insertCell(0).innerHTML = data[i].Name;
+      row.insertCell(1).innerHTML = data[i].LastName;
+      row.insertCell(2).innerHTML = data[i].Email;
+    }
+
+    function reset() { window.location.reload(); }
+    function clear() { localStorage.clear(); }
+  </script>
+
+</body>
+</html>
+
